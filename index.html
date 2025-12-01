@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Arepitahouse | Home</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="js/slider.js" defer></script>
+    <script src="js/app.js" defer></script>
+    <script src="js/auth.js" type="module" defer></script>
+</head>
+
+<body>
+
+<header class="navbar">
+    <div class="logo">AREPITAHOUSE</div>
+
+    <nav>
+        <a href="index.html">Inicio</a>
+        <a href="productos.html">Productos</a>
+
+        <!-- Carrito -->
+        <span class="cart-icon" onclick="window.location='carrito.html'">
+            🛒 <span id="cart-count">0</span>
+        </span>
+
+        <!-- Login / Perfil -->
+        <a id="login-btn" href="login.html">Iniciar sesión</a>
+        <a id="profile-btn" href="perfil.html" style="display:none;">Perfil</a>
+    </nav>
+</header>
+
+
+<!-- SLIDER -->
+<div class="slider">
+    <div class="slide active" 
+         style="background-image:url('https://images.pexels.com/photos/1866149/pexels-photo-1866149.jpeg');">
+        <a class="slider-btn" href="productos/producto1.html">Ver producto</a>
+    </div>
+
+    <div class="slide" 
+         style="background-image:url('https://images.pexels.com/photos/276528/pexels-photo-276528.jpeg');">
+        <a class="slider-btn" href="productos/producto2.html">Ver producto</a>
+    </div>
+
+    <div class="slide" 
+         style="background-image:url('https://images.pexels.com/photos/271743/pexels-photo-271743.jpeg');">
+        <a class="slider-btn" href="productos/producto3.html">Ver producto</a>
+    </div>
+</div>
+
+
+<h2 style="margin:40px 40px 10px;">Productos destacados</h2>
+
+<div class="products-container">
+    <!-- Productos destacados -->
+    <div class="product-card">
+        <img src="https://images.pexels.com/photos/1866149/pexels-photo-1866149.jpeg">
+        <div class="product-info">
+            <h3>Silla Premium</h3>
+            <p>129€</p>
+            <a class="btn" href="productos/producto1.html">Ver</a>
+        </div>
+    </div>
+
+    <div class="product-card">
+        <img src="https://images.pexels.com/photos/276528/pexels-photo-276528.jpeg">
+        <div class="product-info">
+            <h3>Lámpara Nordik</h3>
+            <p>89€</p>
+            <a class="btn" href="productos/producto2.html">Ver</a>
+        </div>
+    </div>
+
+    <div class="product-card">
+        <img src="https://images.pexels.com/photos/271743/pexels-photo-271743.jpeg">
+        <div class="product-info">
+            <h3>Mesita Minimalista</h3>
+            <p>59€</p>
+            <a class="btn" href="productos/producto3.html">Ver</a>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
+</head><body><h1>Arepitahouse</h1><p>Proyecto cargado correctamente.</p></body></html>
