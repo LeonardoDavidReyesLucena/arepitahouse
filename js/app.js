@@ -64,3 +64,11 @@ function showLoginRequired() {
         div.style.color = "#fff";
         div.style.padding = "14px 20px";
         div.style.borderRadiu
+
+// Limpia el carrito completamente
+function clearCart() {
+    localStorage.removeItem("cart");
+    updateCartIcon();
+}
+
+window.clearCart = clearCart;
