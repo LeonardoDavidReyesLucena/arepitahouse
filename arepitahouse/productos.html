@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Productos | Arepitahouse</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="js/app.js" defer></script>
+    <script src="js/auth.js" type="module" defer></script>
+</head>
+
+<body>
+
+<header class="navbar">
+    <div class="logo">AREPITAHOUSE</div>
+    <nav>
+        <a href="index.html">Inicio</a>
+        <a href="productos.html">Productos</a>
+
+        <span class="cart-icon" onclick="window.location='carrito.html'">
+            🛒 <span id="cart-count">0</span>
+        </span>
+
+        <a id="login-btn" href="login.html">Iniciar sesión</a>
+        <a id="profile-btn" href="perfil.html" style="display:none;">Perfil</a>
+    </nav>
+</header>
+
+
+<h2 style="margin-top:120px;margin-left:40px;">Catálogo completo</h2>
+
+<div class="products-container" id="product-list"></div>
+
+<script>
+const productsContainer = document.getElementById("product-list");
+
+// GENERA AUTOMÁTICAMENTE LOS 30 PRODUCTOS
+for (let i = 1; i <= 30; i++) {
+    productsContainer.innerHTML += `
+        <div class="product-card">
+            <img src="https://picsum.photos/seed/${i}/500/300">
+            <div class="product-info">
+                <h3>Producto ${i}</h3>
+                <p>${20+i*3}€</p>
+                <a class="btn" href="productos/producto${i}.html">Ver</a>
+            </div>
+        </div>
+    `;
+}
+</script>
+
+</body>
+</html>

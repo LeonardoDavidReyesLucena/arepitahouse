@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Carrito | Arepitahouse</title>
+    <link rel="stylesheet" href="css/styles.css">
+
+    <script src="js/paypal.js" defer></script>
+    <script src="js/app.js" defer></script>
+    <script src="js/auth.js" type="module" defer></script>
+
+    <!-- PayPal SDK -->
+    <script src="https://www.paypal.com/sdk/js?client-id=sb&currency=EUR"></script>
+
+</head>
+
+<body>
+
+<header class="navbar">
+    <div class="logo">AREPITAHOUSE</div>
+    <nav>
+        <a href="index.html">Inicio</a>
+        <a href="productos.html">Productos</a>
+        <span class="cart-icon">🛒 <span id="cart-count">0</span></span>
+        <a id="login-btn" href="login.html">Iniciar sesión</a>
+        <a id="profile-btn" href="perfil.html" style="display:none;">Perfil</a>
+    </nav>
+</header>
+
+
+<div class="cart-container">
+    <h2>Tu carrito</h2>
+
+    <div id="cart-items"></div>
+
+    <h3>Total: <span id="cart-total">0€</span></h3>
+
+    <div id="paypal-button-container" style="margin-top:20px;"></div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", loadCart);
+</script>
+
+</body>
+</html>
