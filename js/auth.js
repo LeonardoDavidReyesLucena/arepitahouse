@@ -1,4 +1,4 @@
-/* ============================================================
+/* ===========================================================
    AUTH.JS — LOGIN / REGISTRO / GOOGLE / PERFIL / LOGOUT
    COMPATIBLE 100% CON GITHUB PAGES
 ============================================================ */
@@ -143,4 +143,5 @@ window.loadProfile = function () {
         <button class="logout-btn" onclick="logoutUser()">Cerrar sesión</button>
     `;
 };
+
 
