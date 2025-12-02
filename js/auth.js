@@ -1,9 +1,8 @@
-/* ===========================================================
-   AUTH.JS — LOGIN / REGISTRO / GOOGLE / PERFIL / LOGOUT
+/* ============================================================
+   AUTH.JS — LOGIN / REGISTRO / PERFIL / LOGOUT
    COMPATIBLE 100% CON GITHUB PAGES
 ============================================================ */
 
-/* ---- IMPORTS FIREBASE DESDE CDN ---- */
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
 import { 
     getAuth, 
@@ -25,7 +24,6 @@ const firebaseConfig = {
     appId: "1:990542047150:web:bf6e234512c078dd0a0a3f"
 };
 
-/* ---- INICIALIZAR ---- */
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
@@ -71,6 +69,7 @@ window.loginGoogle = function () {
    DETECTAR USUARIO
 ============================================================ */
 onAuthStateChanged(auth, user => {
+
     if (user) {
         localStorage.setItem("user", JSON.stringify({
             name: user.displayName || "Usuario",
@@ -79,11 +78,13 @@ onAuthStateChanged(auth, user => {
         }));
 
         updateUserUI();
-    } else {
+    } 
+    else {
         localStorage.removeItem("user");
 
-        if (typeof clearCart === "function") {
-            clearCart();
+        // 🔥 NO BORRAR EL CARRITO si estamos en carrito.html
+        if (!window.location.pathname.includes("carrito.html")) {
+            if (typeof clearCart === "function") clearCart();
         }
 
         updateUserUI();
@@ -91,7 +92,7 @@ onAuthStateChanged(auth, user => {
 });
 
 /* ============================================================
-   ACTUALIZAR BOTONES HEADER
+   ACTUALIZAR HEADER
 ============================================================ */
 function updateUserUI() {
     const user = JSON.parse(localStorage.getItem("user"));
@@ -99,13 +100,13 @@ function updateUserUI() {
     const profileBtn = document.getElementById("profile-btn");
 
     if (user) {
-        if (loginBtn)  loginBtn.style.display  = "none";
+        if (loginBtn) loginBtn.style.display = "none";
         if (profileBtn) {
             profileBtn.style.display = "inline-block";
-            profileBtn.textContent = "👤 " + user.name;
+            profileBtn.textContent = "Usuario";
         }
     } else {
-        if (loginBtn)  loginBtn.style.display  = "inline-block";
+        if (loginBtn) loginBtn.style.display = "inline-block";
         if (profileBtn) profileBtn.style.display = "none";
     }
 }
@@ -116,11 +117,7 @@ function updateUserUI() {
 window.logoutUser = function () {
     signOut(auth).then(() => {
         localStorage.removeItem("user");
-        
-        if (typeof clearCart === "function") {
-            clearCart();
-        }
-
+        clearCart();
         window.location.href = "index.html";
     });
 };
@@ -137,11 +134,10 @@ window.loadProfile = function () {
     box.innerHTML = `
         <h2>Mi Perfil</h2>
         <img src="${user.img || 'https://i.imgur.com/7kG6VXa.png'}"
-             style="width:120px;height:120px;border-radius:50%;margin-bottom:15px;object-fit:cover;">
+             style="width:120px;height:120px;border-radius:50%;object-fit:cover;margin-bottom:15px;">
         <p><strong>Nombre:</strong> ${user.name}</p>
         <p><strong>Email:</strong> ${user.email}</p>
+
         <button class="logout-btn" onclick="logoutUser()">Cerrar sesión</button>
     `;
 };
-
-
