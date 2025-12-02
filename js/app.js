@@ -1,117 +1,96 @@
-/* =========================================
-   SISTEMA DE CARRITO AREPITAHOUSE
-   - Compatible 100% con GitHub Pages
-========================================= */
+/* ============================================================
+   SISTEMA DE CARRITO — AREPITAHOUSE
+   Funciona en GitHub Pages y con Firebase Auth
+============================================================ */
 
-// Inicializamos carrito
-let cart = JSON.parse(localStorage.getItem("cart")) || [];
-
-/* =========================================
-   ACTUALIZAR CONTADOR
-========================================= */
-function updateCartCount() {
-    const counter = document.getElementById("cart-count");
-    if (counter) counter.textContent = cart.length;
+/* -------------------------------
+   LEER CARRITO DESDE LOCALSTORAGE
+--------------------------------*/
+function getCart() {
+    return JSON.parse(localStorage.getItem("cart")) || [];
 }
-updateCartCount();
 
-/* =========================================
-   AÑADIR AL CARRITO
-========================================= */
-window.addToCart = function(product) {
-
-    const user = localStorage.getItem("user");
-    if (!user) {
-        showLoginRequired();
-        return;
-    }
-
-    cart.push(product);
+/* -------------------------------
+   GUARDAR CARRITO
+--------------------------------*/
+function saveCart(cart) {
     localStorage.setItem("cart", JSON.stringify(cart));
-
     updateCartCount();
-    animateCartIcon();
+}
+
+/* -------------------------------
+   AÑADIR PRODUCTO AL CARRITO
+--------------------------------*/
+window.addToCart = function (name, price, image) {
+    const cart = getCart();
+
+    cart.push({
+        name,
+        price,
+        image
+    });
+
+    saveCart(cart);
+
+    alert("Producto añadido al carrito 🛒");
 };
 
-/* =========================================
-   ANIMACIÓN ICONO
-========================================= */
-function animateCartIcon() {
-    const icon = document.querySelector(".cart-icon");
-    if (!icon) return;
+/* -------------------------------
+   LIMPIAR CARRITO (solo logout)
+--------------------------------*/
+window.clearCart = function () {
+    localStorage.removeItem("cart");
+    updateCartCount();
+};
 
-    icon.style.transform = "scale(1.25)";
-    setTimeout(() => icon.style.transform = "scale(1)", 200);
+/* -------------------------------
+   ACTUALIZAR CONTADOR
+--------------------------------*/
+function updateCartCount() {
+    const cart = getCart();
+    const count = cart.length;
+
+    const bubble = document.getElementById("cart-count");
+
+    if (bubble) bubble.textContent = count;
 }
 
-/* =========================================
-   MENSAJE "Inicia sesión"
-========================================= */
-function showLoginRequired() {
-    let div = document.createElement("div");
-    div.id = "login-required";
-    div.textContent = "Inicia sesión para añadir productos ❤️";
-    div.style.position = "fixed";
-    div.style.bottom = "30px";
-    div.style.right = "30px";
-    div.style.background = "#000";
-    div.style.color = "#fff";
-    div.style.padding = "14px 20px";
-    div.style.borderRadius = "8px";
-    div.style.zIndex = "9999";
-    div.style.boxShadow = "0 4px 12px rgba(0,0,0,0.3)";
+/* -------------------------------
+   CARGAR CARRITO EN carrito.html
+--------------------------------*/
+window.loadCart = function () {
+    const cart = getCart();
+    const container = document.getElementById("cart-items");
+    const totalEl = document.getElementById("cart-total");
 
-    document.body.appendChild(div);
+    if (!container || !totalEl) return;
 
-    setTimeout(() => div.remove(), 2500);
-}
-
-/* =========================================
-   MOSTRAR CARRITO
-========================================= */
-window.loadCart = function() {
-    const box = document.getElementById("cart-items");
-    const totalBox = document.getElementById("cart-total");
-
-    if (!box) return;
-
-    box.innerHTML = "";
+    container.innerHTML = "";
 
     let total = 0;
 
-    cart.forEach((item, index) => {
+    cart.forEach(item => {
         total += Number(item.price);
 
-        box.innerHTML += `
+        container.innerHTML += `
             <div class="cart-item">
-                <img src="${item.img}">
-                <div class="cart-details">
+                <img src="${item.image}" class="cart-img">
+                <div>
                     <h4>${item.name}</h4>
                     <p>${item.price}€</p>
                 </div>
-                <button class="remove-btn" onclick="removeFromCart(${index})">Eliminar</button>
             </div>
         `;
     });
 
-    if (totalBox) totalBox.textContent = total.toFixed(2) + "€";
-};
+    totalEl.textContent = total + "€";
 
-/* =========================================
-   ELIMINAR PRODUCTO
-========================================= */
-window.removeFromCart = function(index) {
-    cart.splice(index, 1);
-    localStorage.setItem("cart", JSON.stringify(cart));
-    updateCartCount();
-    loadCart();
-};
-
-/* =========================================
-   VACIAR CARRITO (logout)
-========================================= */
-window.clearCart = function() {
-    cart = [];
-    localStorage.removeItem("cart");
     updateCartCount();
 };
+
+/* -------------------------------
+   INICIALIZACIÓN GENERAL
+--------------------------------*/
+document.addEventListener("DOMContentLoaded", () => {
+    updateCartCount();
+});
